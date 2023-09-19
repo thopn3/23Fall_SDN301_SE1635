@@ -1,6 +1,7 @@
 import express from 'express'
 import * as dotenv from 'dotenv'
 import {userRouter, productRouter} from './routes/index.js'
+import ConnectDB from './database/database.js'
 
 // Create web server
 const app = express()
@@ -18,6 +19,7 @@ app.use('/products', productRouter) // localhost:9999/products
 
 const port = process.env.PORT || 8080
 
-app.listen(port, ()=>{
+app.listen(port, async ()=>{
+    await ConnectDB()
     console.log(`Node RESTful API running on port ${port}`)
 })

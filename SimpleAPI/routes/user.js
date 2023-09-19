@@ -1,5 +1,6 @@
 import express from 'express'
 import {body, validationResult} from 'express-validator'
+import { userController } from '../controllers/index.js'
 
 // Khai báo đối tượng Router
 const userRouter = express.Router()
@@ -12,10 +13,6 @@ userRouter.get('/:id', (req, res)=>{
     res.send('Get user by Id')
 })
 
-userRouter.post('/create', (req, res)=>{
-    // debugger
-    res.send('Add new user')
-})
 
 userRouter.put('/edit', (req, res)=>{
     res.send('Edit user')
@@ -35,6 +32,13 @@ userRouter.post('/login',
         }
         res.status(200).json(req.body)
     }
+)
+
+userRouter.post('/register',
+    // debugger
+    body("email").isEmail().withMessage('Email invalid format!'),
+    body("password").isLength({min:8}).withMessage('Password length must be greater than or equal to 8.'),
+    userController.register
 )
 
 export default userRouter
