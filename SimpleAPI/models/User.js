@@ -1,5 +1,5 @@
 import mongoose, {ObjectId, Schema} from "mongoose"
-import isEmail from "validator/lib/isEmail"
+import isEmail from "validator/lib/isEmail.js"
 
 const User = mongoose.model("User", new Schema({
     id: ObjectId,
@@ -17,6 +17,14 @@ const User = mongoose.model("User", new Schema({
         validate: {
             validator: value => isEmail,
             message: 'Email is incorrect format.'
+        }
+    },
+    password:{
+        type: String,
+        required: true,
+        validate: {
+            validator: value => value.length >= 8,
+            message: "Length must be greater than or equal to 8 characters"
         }
     },
     phoneNumber:{

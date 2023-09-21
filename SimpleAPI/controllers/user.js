@@ -13,8 +13,11 @@ const register = async (req, res) => {
 
     try {
         // Call action cua Repository (DAO)
-        userRepository.register({name, email, password,phoneNumber,address})
-        res.status(201).json({message: 'Register successfully.'})
+        const newUser = await userRepository.register({name, email, password,phoneNumber,address})
+        res.status(201).json({
+            message: 'Register successfully.',
+            data: newUser
+        })
     } catch (error) {
         res.status(500).json({message: error.toString()})
     }
