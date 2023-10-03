@@ -36,7 +36,7 @@ const login = async ({ email, password }) => {
             },
                 process.env.SECRET_JWT_KEY
                 , {
-                    expiresIn: '2 days'
+                    expiresIn: '1d'
                 })
 
             return {

@@ -2,12 +2,16 @@ import express from 'express'
 import * as dotenv from 'dotenv'
 import {userRouter, productRouter} from './routes/index.js'
 import ConnectDB from './database/database.js'
-// Add Authorization 
+// Add middleware
+import checkToken  from './auth/authorization.js'
 
 // Create web server
 const app = express()
-
 app.use(express.json()) // Khai bao dinh dang du lieu ma express se lam viec
+
+// Add middleware to Express server => Kiem soat tat ca cac request di vao server
+app.use(checkToken)
+
 // Load .evn file: config file
 dotenv.config()
 
